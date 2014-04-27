@@ -1,0 +1,8 @@
+* text=auto
+
+*.java text
+*.scala text
+*.sql text
+
+*.png binary
+*.jpg binary

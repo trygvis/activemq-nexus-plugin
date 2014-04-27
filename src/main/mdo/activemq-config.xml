@@ -1,0 +1,39 @@
+<model>
+  <id>activemq</id>
+  <name>ActiveMqPluginConfiguration</name>
+
+  <description>
+    <![CDATA[
+        <p>Nexus ActiveMq Plugin Configuration.</p>
+        ]]>
+  </description>
+
+  <defaults>
+    <default>
+      <key>package</key>
+      <value>io.trygvis.nexus.activemq.model</value>
+    </default>
+  </defaults>
+
+  <classes>
+    <class rootElement="true" xml.tagName="activeMqConfiguration">
+      <name>Configuration</name>
+      <fields>
+        <field>
+          <name>enabled</name>
+          <description>Activates the submission of events</description>
+          <type>boolean</type>
+          <required>true</required>
+          <default>false</default>
+        </field>
+        <field>
+          <name>brokerUrl</name>
+          <description>The URL to the ActiveMq server (e.g. tcp://localhost:61616)</description>
+          <type>String</type>
+          <required>true</required>
+          <defaultValue>tcp://localhost:61616</defaultValue>
+        </field>
+      </fields>
+    </class>
+  </classes>
+</model>

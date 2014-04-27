@@ -1,0 +1,17 @@
+target
+.idea
+*.iml
+*.ipw
+*.iws
+.classpath
+.project
+.settings
+
+*tmp*
+
+# Nexus
+nexus-*
+sonatype-work
+
+# ActiveMq
+apache-activemq-*
