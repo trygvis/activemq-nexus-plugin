@@ -1,6 +1,7 @@
 # ActiveMQ Nexus Plugin
 
-This is a plugin for Nexus that publishes events from Nexus to an ActiveMQ server.
+This is a plugin for Nexus that publishes events from Nexus to an ActiveMQ server. It will publish messages to the
+`nexus.new-artifact` topic for each new artifact.
 
 ## Development
 
