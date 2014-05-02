@@ -38,7 +38,7 @@ public class ActiveMqConfig {
             try {
                 if (!file.canRead()) {
                     log.info("Creating default configuration file: {}", file);
-                    configuration = new Configuration();
+                    configuration = defaultConfiguration();
                     write(configuration);
                 } else {
                     configuration = read();
@@ -48,6 +48,14 @@ public class ActiveMqConfig {
             }
         }
         return configuration;
+    }
+
+    public static Configuration defaultConfiguration() {
+        Configuration c = new Configuration();
+        c.setEnabled(false);
+        c.setBrokerUrl("tcp://127.0.0.1:61616");
+        c.setTopicName("nexus.new-artifact");
+        return c;
     }
 
     private void write(Configuration configuration) {
@@ -82,6 +90,6 @@ public class ActiveMqConfig {
             }
         }
 
-        return new Configuration();
+        return defaultConfiguration();
     }
 }

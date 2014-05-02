@@ -34,7 +34,7 @@ public class ActiveMqEventListener implements EventSubscriber {
         if (configuration.isEnabled()) {
             String brokerUrl = configuration.getBrokerUrl();
             log.info("Connecting to {}", brokerUrl);
-            this.mqClient = new MqClient(brokerUrl);
+            this.mqClient = new MqClient(config, brokerUrl);
         } else {
             log.warn("The ActiveMq plugin is not enabled");
             this.mqClient = null;

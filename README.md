@@ -10,11 +10,21 @@ This is a plugin for Nexus that publishes events from Nexus to an ActiveMQ serve
 This has to be done once when setting up a Nexus for development. Download nexus from [1]. Unpack it in the root of the
 project.
 
+By default the plugin won't send any messages as it expects you to configure the JMS host, but for development you can
+just put this in `sonatype-work/nexus/conf/activemq-plugin.xml`:
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <activeMqConfiguration>
+      <enabled>true</enabled>
+      <brokerUrl>tcp://127.0.0.1:61616</brokerUrl>
+    </activeMqConfiguration>
+
 Default username and password: admin/admin123
 
 1. Start Nexus with `nexus-*/bin/nexus start`.
-1. Open http://localhost:8081/nexus/#security-users;anonymous
-1. Give the Anonymous user the `Repo: All Repositories (Full Control)` privilege.
+1. Open <http://localhost:8081/nexus/#security-users;anonymous>
+1. Give the Anonymous user the `Repo: All Repositories (Full Control)` privilege. This is just to make development easy,
+so you don't have to create a settings.xml and all that hassle. Remember to press save!
 
 [1]: http://www.sonatype.org/nexus/go
 
@@ -24,7 +34,7 @@ Default username and password: admin/admin123
 1. Unpack `tar zft apache-activemq-*-bin.tar.gz`
 1. Start `apache-activemq-*/bin/activemq start`
 
-The web admin interface will be available at http://localhost:8161. Username and password: admin/admin.
+The web admin interface will be available at <http://localhost:8161/admin/topics.jsp>. Username and password: admin/admin.
 The log files are located at `apache-activemq-*/data/activemq.log`.
 
 ### Building

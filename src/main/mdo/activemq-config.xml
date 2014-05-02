@@ -24,14 +24,18 @@
           <description>Activates the submission of events</description>
           <type>boolean</type>
           <required>true</required>
-          <default>false</default>
         </field>
         <field>
           <name>brokerUrl</name>
           <description>The URL to the ActiveMq server (e.g. tcp://localhost:61616)</description>
           <type>String</type>
           <required>true</required>
-          <defaultValue>tcp://localhost:61616</defaultValue>
+        </field>
+        <field>
+          <name>topicName</name>
+          <description>The name of the JMS topic to submit events to</description>
+          <type>String</type>
+          <required>true</required>
         </field>
       </fields>
     </class>

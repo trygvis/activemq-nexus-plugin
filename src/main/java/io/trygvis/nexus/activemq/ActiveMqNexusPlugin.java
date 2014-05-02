@@ -1,7 +1,5 @@
 package io.trygvis.nexus.activemq;
 
-//import org.eclipse.sisu.EagerSingleton;
-
 import org.slf4j.Logger;
 import org.sonatype.nexus.plugin.PluginIdentity;
 
@@ -11,7 +9,6 @@ import javax.inject.Named;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Named
-//@EagerSingleton
 public class ActiveMqNexusPlugin extends PluginIdentity {
 
     private final Logger log = getLogger(getClass());

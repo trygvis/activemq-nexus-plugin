@@ -1,13 +1,10 @@
 package io.trygvis.nexus.activemq;
 
-import com.sun.jndi.ldap.pool.PooledConnection;
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.pool.PooledConnectionFactory;
 import org.slf4j.Logger;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
@@ -25,9 +22,11 @@ public class MqClient {
 
     private final Logger log = getLogger(getClass());
 
+    private final ActiveMqConfig config;
     private final ConnectionFactory connectionFactory;
 
-    public MqClient(String brokerUrl) {
+    public MqClient(ActiveMqConfig config, String brokerUrl) {
+        this.config = config;
         PooledConnectionFactory cf = new PooledConnectionFactory(brokerUrl);
         cf.setMaxConnections(3);
         this.connectionFactory = cf;
@@ -40,7 +39,7 @@ public class MqClient {
 
             Session session = connection.createSession(false, AUTO_ACKNOWLEDGE);
 
-            Destination destination = session.createTopic("nexus.new-artifact");
+            Destination destination = session.createTopic(config.getConfiguration().getTopicName());
 
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(NON_PERSISTENT);
