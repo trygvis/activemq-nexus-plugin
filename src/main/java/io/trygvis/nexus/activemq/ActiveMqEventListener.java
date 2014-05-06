@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import static org.apache.commons.lang.StringUtils.trimToEmpty;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Singleton
@@ -31,7 +32,7 @@ public class ActiveMqEventListener implements EventSubscriber {
 
         Configuration configuration = config.getConfiguration();
 
-        if (configuration.isEnabled()) {
+        if (configuration.isEnabled() && isValid(configuration)) {
             String brokerUrl = configuration.getBrokerUrl();
             log.info("Connecting to {}", brokerUrl);
             this.mqClient = new MqClient(config, brokerUrl);
@@ -39,6 +40,12 @@ public class ActiveMqEventListener implements EventSubscriber {
             log.warn("The ActiveMq plugin is not enabled");
             this.mqClient = null;
         }
+    }
+
+    private boolean isValid(Configuration configuration) {
+        String brokerUrl = trimToEmpty(configuration.getBrokerUrl());
+
+        return brokerUrl.matches("^[a-z]+:.+");
     }
 
     @Subscribe

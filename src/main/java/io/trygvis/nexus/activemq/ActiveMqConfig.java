@@ -20,6 +20,9 @@ import static org.slf4j.LoggerFactory.getLogger;
 @Singleton
 public class ActiveMqConfig {
 
+    public static final String DEFAULT_TOPIC_NAME = "nexus";
+    public static final String DEFAULT_BROKER_URL = "tcp://127.0.0.1:61616";
+
     private final Logger log = getLogger(getClass());
 
     private final File file;
@@ -53,8 +56,8 @@ public class ActiveMqConfig {
     public static Configuration defaultConfiguration() {
         Configuration c = new Configuration();
         c.setEnabled(false);
-        c.setBrokerUrl("tcp://127.0.0.1:61616");
-        c.setTopicName("nexus.new-artifact");
+        c.setBrokerUrl(DEFAULT_BROKER_URL);
+        c.setTopicName(DEFAULT_TOPIC_NAME);
         return c;
     }
 
@@ -76,7 +79,13 @@ public class ActiveMqConfig {
         try {
             is = new FileInputStream(file);
             ActiveMqPluginConfigurationXpp3Reader reader = new ActiveMqPluginConfigurationXpp3Reader();
-            return reader.read(is);
+            Configuration configuration = reader.read(is);
+
+            if (configuration.getBrokerUrl() == null) {
+                configuration.setBrokerUrl(DEFAULT_BROKER_URL);
+            }
+
+            return configuration;
         } catch (IOException e) {
             log.error("Could not read file, using default configuration", e);
         } catch (XmlPullParserException e) {
